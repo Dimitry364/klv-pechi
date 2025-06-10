@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  height: 85px;
+  height: clamp(60px, 8vw, 85px);
   background: #111;
   color: white;
   z-index: 100;
@@ -12,7 +12,7 @@
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 16px 24px;
+  padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 24px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,13 +29,13 @@
 }
 
 .logoImage {
-  width: 48px;
+  width: clamp(36px, 5vw, 48px);
   height: auto;
 }
 
 .nav {
   display: flex;
-  gap: 32px;
+  gap: clamp(16px, 3vw, 32px);
 
   @media (max-width: 768px) {
     display: none;
@@ -44,7 +44,7 @@
 
 .link {
   font-weight: 600;
-  font-size: 16px;
+  font-size: clamp(14px, 1.5vw, 16px);
   color: white;
   text-decoration: none;
   transition: color 0.2s;
@@ -56,7 +56,7 @@
 
 .buttonScroll {
   font-weight: 600;
-  font-size: 16px;
+  font-size: clamp(14px, 1.5vw, 16px);
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -71,11 +71,12 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: clamp(12px, 2vw, 20px);
 }
 
 .icon {
-  font-size: 20px;
+  position: relative;
+  font-size: clamp(17px, 1.7vw, 21px);
   color: white;
   transition: color 0.2s;
 
@@ -84,8 +85,23 @@
   }
 }
 
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: 9999px;
+  background: #c20909;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1;
+}
+
 .phone {
-  font-size: 14px;
+  font-size: clamp(12px, 1.2vw, 16px);
   color: #ddd;
   text-decoration: none;
 
@@ -103,7 +119,7 @@
   background: none;
   border: none;
   color: white;
-  font-size: 22px;
+  font-size: clamp(20px, 2vw, 22px);
   cursor: pointer;
 
   @media (max-width: 768px) {
@@ -112,15 +128,17 @@
 }
 
 .mobileMenu {
-  background: #1c1c1c;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  text-align: center;
+  background: #1c1c1c;
+  padding: clamp(12px, 3vw, 20px);
+  gap: clamp(13px, 2vw, 16px);
 
   a {
     color: white;
     font-weight: 600;
+    font-size: clamp(14px, 1.5vw, 16px);
     text-decoration: none;
 
     &:hover {

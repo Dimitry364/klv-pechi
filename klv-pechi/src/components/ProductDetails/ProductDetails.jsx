@@ -4,14 +4,14 @@ import Image from 'next/image';
 import styles from './ProductDetails.module.scss';
 import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
+import ModalSuccess from '../ModalSuccess/ModalSuccess';
 
 function ProductDetails({ product }) {
-  const { title, image, material, description, options, specs } =
-    product;
+  const { title, image, material, description, options, specs } = product;
 
   const [selectedOption, setSelectedOption] = useState(options[0]?.values[0]);
 
-  const { addToCart } = useCart();
+  const { addToCart, added, setAdded } = useCart();
 
   return (
     <div className={styles.detailsWrapper}>
@@ -87,17 +87,20 @@ function ProductDetails({ product }) {
           <h3 className={styles.subsectionTitle}>Материалы</h3>
           <p className={styles.paragraph}>{description.material}</p>
         </div>
-
-        <div className={styles.descriptionBlock}>
-          <h3 className={styles.subsectionTitle}>Комплектация</h3>
-          <ul className={styles.equipmentList}>
-            {description.equipment.map((item, i) => (
-              <li key={i} className={styles.equipmentItem}>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {description.equipment.length > 0 ? (
+          <div className={styles.descriptionBlock}>
+            <h3 className={styles.subsectionTitle}>Комплектация</h3>
+            <ul className={styles.equipmentList}>
+              {description.equipment.map((item, i) => (
+                <li key={i} className={styles.equipmentItem}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          ''
+        )}
 
         <div className={styles.descriptionBlock}>
           <h3 className={styles.subsectionTitle}>Преимущества</h3>
@@ -105,6 +108,7 @@ function ProductDetails({ product }) {
           <p className={styles.paragraph}>{description.conclusion}</p>
         </div>
       </div>
+      {added && <ModalSuccess onClose={() => setAdded(false)} />}
     </div>
   );
 }

@@ -6,6 +6,7 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('cart');
@@ -25,6 +26,8 @@ export function CartProvider({ children }) {
 
     const updated = [...currentCart, { product, option }];
     setCart(updated);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2500);
   };
 
   const removeFromCart = (index) => {
@@ -37,7 +40,14 @@ export function CartProvider({ children }) {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart }}
+      value={{
+        cart,
+        added,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        setAdded,
+      }}
     >
       {children}
     </CartContext.Provider>

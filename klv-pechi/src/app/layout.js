@@ -2,6 +2,7 @@ import Header from '@/components/Header/Header';
 // import Footer from '@/components/Footer/Footer';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
+import FeedbackSection from '@/components/FeedbackSection/FeedbackSection';
 
 export const metadata = {
   title: 'Колывань-Печи',
@@ -15,7 +16,7 @@ export default function RootLayout({ children }) {
         <CartProvider>
           <Header />
           <main>{children}</main>
-          {/* <Footer /> */}
+          <FeedbackSection />
         </CartProvider>
       </body>
     </html>

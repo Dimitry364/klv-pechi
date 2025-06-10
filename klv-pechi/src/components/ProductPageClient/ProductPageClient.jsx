@@ -7,14 +7,10 @@ import ProductList from '@/components/ProductList/ProductList';
 
 export default function ProductPageClient({ stoves, accessories }) {
   useEffect(() => {
-    console.log('📦 ProductPageClient монтируется');
-
     const hash = window.location.hash;
-    console.log('🔗 hash из URL:', hash);
 
     if (hash) {
       setTimeout(() => {
-        console.log('⏳ setTimeout: попытка скролла к hash');
         scrollToHash(hash, 100);
       }, 200);
     }

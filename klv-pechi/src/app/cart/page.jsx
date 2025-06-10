@@ -3,9 +3,11 @@
 import { useCart } from '@/context/CartContext';
 import { useState } from 'react';
 import styles from './CartPage.module.scss';
+import { telegramSender } from '@/lib/TelegramSender';
 import PhoneInput from 'react-phone-input-2';
 import Image from 'next/image';
 import 'react-phone-input-2/lib/style.css';
+import Modal from '@/components/Modal/Modal';
 
 export default function CartPage() {
   const { cart, removeFromCart, clearCart } = useCart();
@@ -17,25 +19,21 @@ export default function CartPage() {
   const [method, setMethod] = useState('telegram');
   const [comment, setComment] = useState('');
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
     if (!name || !phone || cart.length === 0) {
+      setIsLoading(false);
       alert(
         'Пожалуйста, заполните имя, телефон и убедитесь, что корзина не пуста.'
       );
       return;
     }
-
-    const order = {
-      name,
-      phone,
-      method,
-      comment,
-      items: cart,
-      total,
-    };
 
     const message = `
 <b>🧾 Новый заказ</b>\n
@@ -56,27 +54,18 @@ export default function CartPage() {
 💰 <b>Итого:</b> ${total.toLocaleString('ru-RU')} ₽
 `;
 
-    const res = await fetch(
-      `https://api.telegram.org/bot${process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN}/sendMessage`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID,
-          text: message,
-          parse_mode: 'HTML',
-        }),
-      }
-    );
-
-    if (res.ok) {
+    try {
+      await telegramSender.sendMessage(message);
       setSuccess(true);
       clearCart();
       setName('');
       setPhone('');
       setComment('');
-    } else {
+    } catch (error) {
+      console.error('Ошибка при отправке в Telegram:', error);
       alert('Ошибка при отправке заявки. Попробуйте позже.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -182,13 +171,13 @@ export default function CartPage() {
                   onChange={(e) => setComment(e.target.value)}
                 />
 
-                <button className={styles.submit} type='submit'>
-                  Оформить заказ
+                <button
+                  className={styles.submit}
+                  type='submit'
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Отправляем...' : 'Оформить заказ'}
                 </button>
-
-                {success && (
-                  <p className={styles.success}>✅ Заявка успешно отправлена</p>
-                )}
               </form>
             </div>
 
@@ -230,6 +219,19 @@ export default function CartPage() {
           </div>
         )}
       </div>
+      {(success || error) && (
+        <Modal
+          message={
+            success
+              ? 'Спасибо за заявку! Мы скоро с вами свяжемся.'
+              : 'Ошибка при отправке. Попробуйте позже.'
+          }
+          onClose={() => {
+            setSuccess(false);
+            setError(null);
+          }}
+        />
+      )}
     </div>
   );
 }

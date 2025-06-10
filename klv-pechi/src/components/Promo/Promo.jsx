@@ -1,7 +1,22 @@
+'use client';
+
 import React from 'react';
 import styles from './Promo.module.scss';
+import { usePathname, useRouter } from 'next/navigation';
+import scrollToHash from '../utils/scrollToHash';
 
 const Promo = () => {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleScrollToSection = (sectionId) => {
+    if (pathname === '/') {
+      const el = document.getElementById(sectionId);
+      if (el) scrollToHash(`#${sectionId}`, 100);
+    } else {
+      router.push(`/#${sectionId}`);
+    }
+  };
   return (
     <section className={styles.promo}>
       <div className={styles.content}>
@@ -14,8 +29,18 @@ const Promo = () => {
             Надёжность, жар и стиль — то, что нужно для настоящей русской бани.
           </p>
           <div className={styles.buttons}>
-            <button className={styles.primaryBtn}>Каталог</button>
-            <button className={styles.secondaryBtn}>О нас</button>
+            <button
+              className={styles.primaryBtn}
+              onClick={() => handleScrollToSection('stoves')}
+            >
+              Каталог
+            </button>
+            <button
+              className={styles.secondaryBtn}
+              onClick={() => handleScrollToSection('about')}
+            >
+              О нас
+            </button>
           </div>
         </div>
 

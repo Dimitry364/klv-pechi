@@ -12,14 +12,18 @@ import {
 } from 'react-icons/fa';
 import styles from './Header.module.scss';
 import scrollToHash from '../utils/scrollToHash';
+import { useCart } from '@/context/CartContext';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const { cart } = useCart();
 
   const handleScrollToSection = (sectionId) => {
-    if (pathname === '/') {
+    if (sectionId === 'contact') {
+      scrollToHash(`#${sectionId}`, 100);
+    } else if (pathname === '/') {
       const el = document.getElementById(sectionId);
       if (el) scrollToHash(`#${sectionId}`, 100);
     } else {
@@ -49,15 +53,29 @@ export default function Header() {
           >
             Каталог
           </button>
-          <Link href='/contacts' className={styles.link}>
+          <button
+            className={styles.buttonScroll}
+            onClick={() => handleScrollToSection('about')}
+          >
+            О нас
+          </button>
+          <button
+            className={styles.buttonScroll}
+            onClick={() => handleScrollToSection('contact')}
+          >
             Контакты
-          </Link>
+          </button>
         </nav>
 
         {/* Right Side: Icons */}
         <div className={styles.actions}>
           <Link href='/cart' className={styles.icon}>
             <FaShoppingCart />
+            {cart.length > 0 ? (
+              <span className={styles.badge}>{cart.length}</span>
+            ) : (
+              ''
+            )}
           </Link>
           <a
             href='https://t.me/kolivan'
@@ -88,12 +106,24 @@ export default function Header() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className={styles.mobileMenu}>
-          <Link href='/catalog' onClick={() => setMenuOpen(false)}>
+          <button
+            className={styles.buttonScroll}
+            onClick={() => {
+              handleScrollToSection('stoves');
+              setMenuOpen(false);
+            }}
+          >
             Каталог
-          </Link>
-          <Link href='/contacts' onClick={() => setMenuOpen(false)}>
+          </button>
+          <button
+            className={styles.buttonScroll}
+            onClick={() => {
+              handleScrollToSection('contact');
+              setMenuOpen(false);
+            }}
+          >
             Контакты
-          </Link>
+          </button>
           <Link href='/cart' onClick={() => setMenuOpen(false)}>
             Корзина
           </Link>

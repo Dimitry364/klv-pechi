@@ -1,35 +1,42 @@
-class ProductService {
-  constructor({ baseUrl, headers }) {
-    this.baseUrl = baseUrl;
-    this.headers = headers;
-  }
+import clientPromise from './mongo';
 
-  async _checkResponse(res) {
+//Проверяем где работает код. Если нет виндов, то значит сервер
+const isServer = typeof window === 'undefined';
+const headers = { 'Content-Type': 'application/json' };
+
+class ProductService {
+  async _fetch(path) {
+    const res = await fetch(path, { headers });
     if (res.ok) return res.json();
     throw new Error(`HTTP ${res.status}`);
   }
 
-  async _request(path, options = {}) {
-    const url = `${this.baseUrl}${path}`;
-    return fetch(url, {
-      headers: this.headers,
-      ...options,
-    }).then((res) => this._checkResponse(res));
+  //подключаемся к монго
+  async _mongo() {
+    const client = await clientPromise;
+    const db = client.db('klv-pech');
+    return db.collection('products');
   }
 
-  /** Вернуть все продукты */
+  //на сервере идёт подключение к базе напрямую
+  //в браузере делается fetch на API
   async getProducts() {
-    return this._request('/api/products');
+    if (isServer) {
+      const coll = await this._mongo();
+      return coll.find({}).toArray();
+    }
+
+    return this._fetch('/api/products');
   }
 
-  /** Вернуть один продукт по slug */
   async getProductBySlug(slug) {
-    return this._request(`/api/products/${encodeURIComponent(slug)}`);
+    if (isServer) {
+      const coll = await this._mongo();
+      return coll.findOne({ slug });
+    }
+
+    return this._fetch(`/api/products/${slug}`);
   }
 }
 
-// Экземпляр
-export const productService = new ProductService({
-  baseUrl: process.env.API_URL,
-  headers: { 'Content-Type': 'application/json' },
-});
+export const productService = new ProductService();

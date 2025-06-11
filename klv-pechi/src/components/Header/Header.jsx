@@ -78,7 +78,7 @@ export default function Header() {
             )}
           </Link>
           <a
-            href='https://t.me/kolivan'
+            href='https://t.me/+79513645566'
             target='_blank'
             className={styles.icon}
           >

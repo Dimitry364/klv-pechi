@@ -35,7 +35,7 @@ class ProductService {
       return coll.findOne({ slug });
     }
 
-    return this._fetch(`/api/products/${slug}`);
+    return this._fetch(`/api/products/${encodeURIComponent(slug)}`);
   }
 }
 

@@ -44,7 +44,6 @@ export const metadata = {
     description: 'Печи, мангалы, костровые чаши',
     images: ['/og-main.jpg'],
   },
-  themeColor: '#0a0a0a',
 };
 
 export default function RootLayout({ children }) {

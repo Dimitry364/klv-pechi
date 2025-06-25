@@ -124,6 +124,15 @@ export default function Header() {
           <button
             className={styles.buttonScroll}
             onClick={() => {
+              handleScrollToSection('delivery');
+              setMenuOpen(false);
+            }}
+          >
+            Доставка и оплата
+          </button>
+          <button
+            className={styles.buttonScroll}
+            onClick={() => {
               handleScrollToSection('contact');
               setMenuOpen(false);
             }}

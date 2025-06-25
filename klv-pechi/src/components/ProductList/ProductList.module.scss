@@ -1,14 +1,12 @@
 .container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: clamp(24px, 4vw, 40px);
+  padding-top: clamp(20px, 4vw, 25px);
 }
 
 .list {
   display: grid;
   gap: clamp(24px, 4vw, 40px);
-
-  /* всегда по центру, чтобы две карточки не «расползались» */
   justify-content: center;
 
   /* 2 колонки на десктопе */

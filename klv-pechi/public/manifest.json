@@ -1,0 +1,24 @@
+{
+  "lang": "ru",
+  "description": "Производство печей и костровых чаш из нержавеющей стали AISI 321 с доставкой по России.",
+  "name": "Колывань",
+  "short_name": "Колывань-Печи",
+
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/img/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

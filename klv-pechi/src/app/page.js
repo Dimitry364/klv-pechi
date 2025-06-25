@@ -5,10 +5,14 @@ import { productService } from '@/lib/ProductService';
 // import GallerySection from '@/components/GallerySection/GallerySection';
 import ProductPageClient from '@/components/ProductPageClient/ProductPageClient';
 import AboutSection from '@/components/AboutSection/AboutSection';
+import DeliverySection from '@/components/DeliverySection/DeliveryAndPayment';
 
 export default async function Home() {
-  const products = await productService.getProducts();
+  const mongoProducts = await productService.getProducts();
+  const products = JSON.parse(JSON.stringify(mongoProducts));
+
   // const images = await galleryService.getGalleryImages();
+
   const stoves = products.filter((p) => p.category === 'stoves');
   const accessories = products.filter((p) => p.category === 'accessories');
 
@@ -18,6 +22,7 @@ export default async function Home() {
         <Promo />
         <ProductPageClient stoves={stoves} accessories={accessories} />
         <AboutSection />
+        <DeliverySection />
         {/* <GallerySection images={images} /> */}
       </main>
     </div>

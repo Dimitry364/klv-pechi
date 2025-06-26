@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styles from './Promo.module.scss';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import scrollToHash from '../utils/scrollToHash';
 
@@ -45,7 +46,15 @@ const Promo = () => {
         </div>
 
         <div className={styles.image}>
-          <img src='/img/promo/promofence-Photoroom.png' alt='Печь Колывань' />
+          <Image
+            src='/img/promo/promofence-Photoroom.webp'
+            alt='Печь Колывань'
+            width={500}
+            height={600}
+            priority
+            fetchPriority='high'
+            sizes='(max-width: 768px) 0px, (max-width: 1200px) 35vw, 500px'
+          />
         </div>
       </div>
     </section>

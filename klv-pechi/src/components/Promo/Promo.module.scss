@@ -43,12 +43,14 @@
   max-width: 660px;
 
   .title {
+    min-height: 180px;
     font-size: clamp(49px, 6vw, 72px);
     font-weight: 900;
     line-height: 1.15;
     margin-bottom: clamp(16px, 3vw, 32px);
 
     span {
+      display: block;
       color: #d61111;
     }
   }
@@ -73,7 +75,6 @@
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 80px rgba(255, 60, 0, 0.25));
-    transform: translateY(10px);
     position: relative;
     z-index: 2;
   }
@@ -101,14 +102,15 @@
       rgba(255, 100, 0, 0.2),
       transparent 60%
     );
-    bottom: -170px;
-    right: 5%;
+    bottom: -117px;
+    right: 48%;
     transform: translate(20%, 10%);
     z-index: 1;
   }
 
   @media (max-width: 768px) {
-    display: none;
+    visibility: hidden;
+    height: 0;
   }
 }
 

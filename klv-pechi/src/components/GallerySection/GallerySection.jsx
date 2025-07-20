@@ -9,22 +9,30 @@ import Image from 'next/image';
 
 export default function GallerySection({ albums }) {
   const [open, setOpen] = useState(false);
-  const [start, setStart] = useState(0); // индекс кадра для открытия
+  const [start, setStart] = useState(0);
   const swiperRef = useRef(null);
   const [isClient, setIsClient] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // клиентский флаг
   useEffect(() => {
     setIsClient(true);
+    const handleResize = () => setIsMobile(window.innerWidth < 600);
+    handleResize(); // при монтировании
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // безопасный flatMap
   const flatPhotos = useMemo(() => {
+    if (!albums || !Array.isArray(albums)) return [];
     return albums.flatMap(({ slug, title, photos }) =>
-      photos.map((src) => ({ src, albumTitle: title, albumSlug: slug }))
+      (photos || []).map((src) => ({ src, albumTitle: title, albumSlug: slug }))
     );
   }, [albums]);
 
   const handleOpen = (slug) => {
     const alb = albums.find((a) => a.slug === slug);
-
     if (!alb) return;
 
     const idx = flatPhotos.findIndex(
@@ -34,7 +42,8 @@ export default function GallerySection({ albums }) {
     setOpen(true);
   };
 
-  if (albums.length === 0) {
+  // если пусто или null
+  if (!albums || albums.length === 0) {
     return (
       <section className={styles.gallerySection}>
         <h2 className={styles.title}>Фотогалерея</h2>
@@ -42,6 +51,7 @@ export default function GallerySection({ albums }) {
       </section>
     );
   }
+
   return (
     <section id='gallery' className={`${styles.gallerySection} gallerySection`}>
       <div className={styles.container}>
@@ -79,6 +89,7 @@ export default function GallerySection({ albums }) {
             </SwiperSlide>
           ))}
         </Swiper>
+
         {open && (
           <GalleryModal
             startIndex={start}
@@ -86,7 +97,8 @@ export default function GallerySection({ albums }) {
             onClose={() => setOpen(false)}
           />
         )}
-        {isClient && window.innerWidth < 600 && (
+        {/* Мобильные стрелки */}
+        {isClient && isMobile && (
           <div className={styles.mobileArrows}>
             <button onClick={() => swiperRef.current?.slidePrev()}>←</button>
             <button onClick={() => swiperRef.current?.slideNext()}>→</button>

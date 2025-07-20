@@ -70,7 +70,7 @@ export default function GallerySection({ albums }) {
           centeredSlides={false}
           className={`${styles.albumSwiper} albumSwiper`}
         >
-          {albums.map((alb) => (
+          {(albums || []).map((alb) => (
             <SwiperSlide
               key={alb.slug}
               className={styles.albumCard}
@@ -84,7 +84,9 @@ export default function GallerySection({ albums }) {
                 alt={alb.title}
                 loading='lazy'
               />
-              <span className={styles.counter}>{alb.photos.length} фото</span>
+              <span className={styles.counter}>
+                {alb.photos?.length ?? 0} фото
+              </span>
               <span className={styles.caption}>{alb.description}</span>
             </SwiperSlide>
           ))}

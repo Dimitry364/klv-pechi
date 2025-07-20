@@ -55,6 +55,12 @@ export default function Header() {
           </button>
           <button
             className={styles.buttonScroll}
+            onClick={() => handleScrollToSection('gallery')}
+          >
+            Галерея
+          </button>
+          <button
+            className={styles.buttonScroll}
             onClick={() => handleScrollToSection('about')}
           >
             О нас
@@ -120,6 +126,15 @@ export default function Header() {
             }}
           >
             Каталог
+          </button>
+          <button
+            className={styles.buttonScroll}
+            onClick={() => {
+              handleScrollToSection('gallery');
+              setMenuOpen(false);
+            }}
+          >
+            Галерея
           </button>
           <button
             className={styles.buttonScroll}

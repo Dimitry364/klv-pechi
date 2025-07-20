@@ -139,7 +139,6 @@
 
 .videoBlock {
   flex: 0 0 320px;
-  background: #000;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -161,12 +160,6 @@
   }
 }
 
-.videoPlaceholder {
-  padding: 20px;
-  text-align: center;
-  font-size: 1.2rem;
-}
-
 /* Мобилка <= 991: вся секция в колонку */
 @media (max-width: 991px) {
   .content {
@@ -180,6 +173,6 @@
   .textBlock,
   .paymentBlock,
   .videoBlock {
-    width: 100% !important;
+    width: 100%;
   }
 }

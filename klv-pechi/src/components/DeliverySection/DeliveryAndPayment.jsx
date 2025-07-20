@@ -1,4 +1,6 @@
 'use client';
+
+import LazyVideo from '../LazyVideo/LazyVideo';
 import styles from './DeliveryAndPayment.module.scss';
 
 const DeliveryAndPayment = () => {
@@ -39,6 +41,15 @@ const DeliveryAndPayment = () => {
               >
                 Открыть в 2ГИС →
               </a>
+              <a
+                href='https://yandex.ru/maps/org/kolyvan_pechi/32855616938/?ll=82.747135%2C55.318329&source=serp_navig&z=18.91'
+                className={styles.mapLink}
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label='Открыть локацию в 2ГИС'
+              >
+                Открыть в Яндекс.Картах →
+              </a>
             </article>
 
             <article className={styles.paymentBlock}>
@@ -61,7 +72,7 @@ const DeliveryAndPayment = () => {
           </div>
 
           <div className={styles.videoBlock}>
-            <div className={styles.videoPlaceholder}>Видео заглушка</div>
+            <LazyVideo />
           </div>
         </div>
       </div>

@@ -109,8 +109,9 @@
   }
 
   @media (max-width: 768px) {
-    visibility: hidden;
-    height: 0;
+    display: none;
+    // visibility: hidden;
+    // height: 0;
   }
 }
 

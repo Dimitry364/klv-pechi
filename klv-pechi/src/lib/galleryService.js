@@ -17,7 +17,7 @@ class Gallery {
     }).then((res) => this._checkResponse(res));
   }
 
-  async getGalleryImages() {
+  async getGalleryAlbum() {
     return this._request('/api/gallery');
   }
 }

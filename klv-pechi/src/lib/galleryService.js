@@ -18,7 +18,7 @@ class Gallery {
   }
 
   async getGalleryAlbum() {
-    return this._request('/api/gallery');
+    return this._request('/api/gallery', { cache: 'no-store' });
   }
 }
 

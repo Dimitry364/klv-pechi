@@ -6,13 +6,26 @@ import styles from './GallerySection.module.scss';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Keyboard, Navigation } from 'swiper/modules';
 import Image from 'next/image';
+import { galleryService } from '@/lib/galleryService';
 
-export default function GallerySection({ albums }) {
+export default function GallerySection() {
   const [open, setOpen] = useState(false);
   const [start, setStart] = useState(0);
   const swiperRef = useRef(null);
   const [isClient, setIsClient] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [albums, setAlbums] = useState([]);
+
+  useEffect(() => {
+    galleryService
+      .getGalleryAlbum()
+      .then((data) => {
+        setAlbums(data);
+      })
+      .catch((err) => {
+        console.error('Ошибка в получении данных', err);
+      });
+  }, []);
 
   // клиентский флаг
   useEffect(() => {

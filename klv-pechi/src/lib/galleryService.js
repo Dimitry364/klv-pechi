@@ -24,6 +24,6 @@ class Gallery {
 
 // Экземпляр
 export const galleryService = new Gallery({
-  baseUrl: process.env.API_URL,
+  baseUrl: process.env.API_URL || 'http://localhost:3000',
   headers: { 'Content-Type': 'application/json' },
 });

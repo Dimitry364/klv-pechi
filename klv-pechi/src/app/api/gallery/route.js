@@ -1,13 +1,11 @@
 import clientPromise from '@/lib/mongo';
 import path from 'path';
 import fs from 'fs/promises';
-import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+export const runtime = 'nodejs';
 
 export async function GET() {
-  console.log('API /gallery route вызван');
-  console.log('__dirname:', __dirname);
+  console.log('process.cwd():', process.cwd());
 
   try {
     const client = await clientPromise;
@@ -18,11 +16,7 @@ export async function GET() {
 
     const widthPhotos = await Promise.all(
       albums.map(async (alb) => {
-        const dir = path.resolve(
-          __dirname,
-          '../../../../public/gallery',
-          alb.folder
-        ); // формируем путь к папке
+        const dir = path.join(process.cwd(), 'public', 'gallery', alb.folder); // формируем путь к папке
 
         console.log('ABSOLUTE PATH', dir);
 

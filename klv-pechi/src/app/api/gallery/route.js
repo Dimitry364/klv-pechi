@@ -3,6 +3,8 @@ import path from 'path';
 import fs from 'fs/promises';
 
 export async function GET() {
+  console.log('process.cwd():', process.cwd());
+
   try {
     const client = await clientPromise;
     const db = client.db('klv-pech');

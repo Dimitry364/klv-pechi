@@ -14,7 +14,7 @@ export default function GallerySection({ albums = [] }) {
   const [isClient, setIsClient] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  console.log('albums', albums);
+  console.log('Проверяем приходит ли альбом - ', albums);
 
   // клиентский флаг
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function GallerySection({ albums = [] }) {
           centeredSlides={false}
           className={`${styles.albumSwiper} albumSwiper`}
         >
-          {(albums || []).map((alb) => (
+          {albums.map((alb) => (
             <SwiperSlide
               key={alb.slug}
               className={styles.albumCard}

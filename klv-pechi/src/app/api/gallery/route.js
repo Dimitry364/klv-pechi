@@ -13,6 +13,9 @@ export async function GET() {
     const widthPhotos = await Promise.all(
       albums.map(async (alb) => {
         const dir = path.join(process.cwd(), 'public', 'gallery', alb.folder); // формируем путь к папке
+
+        console.log('ABSOLUTE PATH', dir);
+
         const files = await fs.readdir(dir); //читаем список файлов
         console.log(
           'Чтение папки:',

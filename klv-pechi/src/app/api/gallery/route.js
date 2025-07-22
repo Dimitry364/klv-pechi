@@ -8,16 +8,22 @@ export async function GET() {
     const db = client.db('klv-pech');
 
     const albums = await db.collection('gallery').find({}).toArray();
+    console.log('/api/gallery route вызван');
 
     const widthPhotos = await Promise.all(
       albums.map(async (alb) => {
         const dir = path.join(process.cwd(), 'public', 'gallery', alb.folder); // формируем путь к папке
         const files = await fs.readdir(dir); //читаем список файлов
+        console.log(
+          'Чтение папки:',
+          path.join(process.cwd(), 'public', 'gallery', alb.folder)
+        );
         const photos = files
           .filter((f) => !/cover/i.test(f))
           .sort()
           .map((f) => `/gallery/${alb.folder}/${f}`);
 
+        console.log('Найденные фото:', photos);
         return { ...alb, photos };
       })
     );

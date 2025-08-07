@@ -52,7 +52,6 @@ export default function GallerySection({ albums = [] }) {
     );
   }
 
-  console.log('Проверяем приходит ли альбом - ', albums);
   return (
     <section id='gallery' className={`${styles.gallerySection} gallerySection`}>
       <div className={styles.container}>

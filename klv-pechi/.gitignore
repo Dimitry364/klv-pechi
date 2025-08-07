@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Игнорировать sitemap и robots
+klv-pechi/public/robots.txt
+klv-pechi/public/sitemap.xml
+klv-pechi/public/sitemap-0.xml

@@ -40,7 +40,7 @@ export default function Header() {
             src='/img/logo/Logored_kolivan2.svg'
             alt='Колывань'
             width={48}
-            height={48}
+            height={58}
             className={styles.logoImage}
           />
         </Link>

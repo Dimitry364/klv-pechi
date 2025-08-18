@@ -16,35 +16,43 @@
   justify-content: space-between;
   flex-wrap: wrap;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     flex-direction: column;
-    gap: 32px;
+    align-items: stretch;
+    gap: 24px;
   }
 }
 
 .imageBlock {
-  flex: 0 0 clamp(260px, 35vw, 520px);
+  flex: 0 0 clamp(320px, 35vw, 560px);
+  max-width: 560px;
+  min-width: 0;
+
   background: #111;
   border-radius: 20px;
   padding: clamp(16px, 3vw, 32px);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  img {
+  display: block;
+
+  @media (max-width: 900px) {
+    /* мобилка: ширина 100%, НЕ задаём flex-basis как высоту */
+    flex: 1 1 auto;
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    max-width: none;
   }
 }
 
 .infoBlock {
   flex: 1;
-  min-width: 280px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: clamp(16px, 3vw, 24px);
+
+  @media (min-width: 900px) {
+    min-width: 280px; /* опционально на десктопе */
+  }
 }
 
 .title {

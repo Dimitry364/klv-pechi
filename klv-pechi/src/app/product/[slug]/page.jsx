@@ -3,7 +3,8 @@ import ProductDetails from '@/components/ProductDetails/ProductDetails';
 import Script from 'next/script';
 
 export async function generateMetadata({ params }) {
-  const mongoProducts = await productService.getProductBySlug(params.slug);
+  const { slug } = await params;
+  const mongoProducts = await productService.getProductBySlug(slug);
   const product = JSON.parse(JSON.stringify(mongoProducts));
 
   const extension = product.image?.split('.').pop()?.toLowerCase();
@@ -56,7 +57,7 @@ export async function generateStaticParams() {
 }
 
 export default async function ProductPage({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   const mongoProducts = await productService.getProductBySlug(slug);
   const product = JSON.parse(JSON.stringify(mongoProducts));
 

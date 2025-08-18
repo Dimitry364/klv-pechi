@@ -43,18 +43,22 @@ export default function ProductGallery({ images = [], title = '' }) {
         zoom={{ maxRatio: 2 }}
         thumbs={{ swiper: thumbsSwiper }}
         className={styles.productSwiper}
+        observer
+        observeParents
       >
-        {images.map((src, idx) => (
-          <SwiperSlide key={`${src}-${idx}`} onClick={() => open(idx)}>
-            <div className={`${styles.slideBox} swiper-zoom-container`}>
-              <Image
-                src={src}
-                alt={`${title} — фото ${idx + 1}`}
-                fill
-                sizes='(max-width: 520px) 100vw, 520px'
-                className={styles.img}
-                priority={idx === 0}
-              />
+        {images.map((src, i) => (
+          <SwiperSlide key={`${src}-${i}`} onClick={() => open(i)}>
+            <div className={styles.slideBox}>
+              <div className='swiper-zoom-container'>
+                <Image
+                  src={src}
+                  alt={`${title} — фото ${i + 1}`}
+                  fill
+                  sizes='(max-width: 900px) 92vw, 560px'
+                  className={styles.img}
+                  priority={i === 0}
+                />
+              </div>
             </div>
           </SwiperSlide>
         ))}
@@ -75,7 +79,7 @@ export default function ProductGallery({ images = [], title = '' }) {
             <div className={styles.thumb}>
               <Image
                 src={src}
-                alt={`${title} — превью ${idx + 1}`}
+                alt={`${title} — полноэкранное фото ${idx + 1}`}
                 fill
                 sizes='120px'
                 className={styles.img}
@@ -108,19 +112,21 @@ export default function ProductGallery({ images = [], title = '' }) {
               lazyPreloadPrevNext={1}
               zoom={{ maxRatio: 3 }}
               className={styles.lightboxSwiper}
+              observer
+              observeParents
             >
               {images.map((src, idx) => (
                 <SwiperSlide key={`full-${src}-${idx}`}>
-                  <div
-                    className={`${styles.lightboxSlide} swiper-zoom-container`}
-                  >
-                    <Image
-                      src={src}
-                      alt={`${title} — полноэкранное фото ${idx + 1}`}
-                      fill
-                      sizes='100vw'
-                      className={styles.img}
-                    />
+                  <div className={styles.lightboxSlide}>
+                    <div className='swiper-zoom-container'>
+                      <Image
+                        src={src}
+                        alt={`${title} — полноэкранное фото ${idx + 1}`}
+                        fill
+                        sizes='(max-width: 1200px) 96vw, 1200px'
+                        className={styles.img}
+                      />
+                    </div>
                   </div>
                 </SwiperSlide>
               ))}

@@ -3,11 +3,35 @@
 import Image from 'next/image';
 import styles from './ProductDetails.module.scss';
 import { useState } from 'react';
+
 import { useCart } from '@/context/CartContext';
 import ModalSuccess from '../ModalSuccess/ModalSuccess';
+import ProductGallery from '../ProductGallery/ProductGallery';
 
 function ProductDetails({ product }) {
-  const { title, image, material, description, options, specs } = product;
+  const { title, image, images, material, description, options, specs } =
+    product;
+
+  const normalizeImages = (val, fallback) => {
+    if (Array.isArray(val)) return val;
+
+    if (typeof val === 'string') {
+      // пробуем распарсить json - строку
+      try {
+        const parsed = JSON.parse(val);
+        if (Array.isArray(parsed)) return parsed.filter(Boolean);
+      } catch (_) {
+        // если не валидный json режем по запятым и чистим
+        return val
+          .split(',')
+          .map((s) => s.replace(/[\[\]"]/g, '').trim())
+          .filter(Boolean);
+      }
+    }
+    return fallback ? [fallback] : [];
+  };
+
+  const gallery = normalizeImages(images, image);
 
   const [selectedOption, setSelectedOption] = useState(options[0]?.values[0]);
 
@@ -17,7 +41,7 @@ function ProductDetails({ product }) {
     <div className={styles.detailsWrapper}>
       <div className={styles.topSection}>
         <div className={styles.imageBlock}>
-          <Image src={image} alt={title} width={500} height={500} priority />
+          <ProductGallery images={gallery} title={title} />
         </div>
 
         <div className={styles.infoBlock}>

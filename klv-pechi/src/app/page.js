@@ -24,8 +24,6 @@ export default async function Home() {
     }
   );
   const albums = await res.json();
-  console.log('albums length', albums?.length);
-  console.log('album', albums?.[0]);
 
   return (
     <div className={styles.page}>

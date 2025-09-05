@@ -11,9 +11,7 @@ export default function AboutSection() {
   const containerVariants = {
     hidden: {},
     visible: {
-      transition: {
-        staggerChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.3 },
     },
   };
 
@@ -27,7 +25,11 @@ export default function AboutSection() {
   };
 
   return (
-    <section id='about' className={styles.section}>
+    <section
+      id='about'
+      className={styles.section}
+      aria-labelledby='about-title'
+    >
       <motion.div
         ref={ref}
         className={styles.sectionBox}
@@ -35,63 +37,60 @@ export default function AboutSection() {
         initial='hidden'
         animate={isInView ? 'visible' : 'hidden'}
       >
-        <h2 className={styles.sectionTitle}>О нас</h2>
+        <h2 id='about-title' className={styles.sectionTitle}>
+          О нас
+        </h2>
 
         <div className={styles.grid}>
           <div className={styles.textBlock}>
             <motion.p variants={paragraphVariants} className={styles.paragraph}>
-              Мы создаём печи, которые не просто греют воздух — они греют душу.
-              Для нас баня — это не бытовая необходимость, а культура, традиция
-              и часть русской идентичности.
+              Мы не идём на поводу у модных тенденций — мы их создаём. Мы не
+              производим дешёвые одноразовые изделия ради сиюминутной прибыли.
+              Наши <strong>печи для бани и сауны</strong> приносят радость от
+              использования — и этим хочется делиться.
             </motion.p>
 
             <motion.p variants={paragraphVariants} className={styles.paragraph}>
-              <strong>Колывань</strong> — это производитель, в основе которого
-              лежит инженерная точность и глубокое уважение к делу. Мы
-              используем жаропрочную нержавеющую сталь AISI 321 толщиной 2–3 мм,
-              применяем аргонную сварку и собираем печи на собственном
-              промышленном оборудовании. Каждая единица проходит ручной контроль
-              качества.
+              Только лучшие материалы и оптимальные технические решения:
+              жаропрочная нержавеющая сталь <strong>AISI&nbsp;321</strong>,
+              толщина <strong>2–3&nbsp;мм</strong>.
             </motion.p>
 
             <motion.p variants={paragraphVariants} className={styles.paragraph}>
-              Конструкции запатентованы и разработаны таким образом, чтобы
-              обеспечить максимальную теплоотдачу, равномерный прогрев, и полное
-              сгорание топлива без перегрева корпуса. Камни располагаются
-              отдельно от металла, а значит, печи служат дольше и безопаснее.
+              Все вопросы решаем в пользу клиента и всегда готовы помочь —
+              консультация, подбор, сервис и{' '}
+              <strong>доставка по всей России</strong>.
             </motion.p>
 
             <motion.p variants={paragraphVariants} className={styles.paragraph}>
-              Мы не идём на компромиссы: ни в материалах, ни в сборке, ни в
-              обслуживании. Для нас важно, чтобы каждая печь, вышедшая из нашего
-              цеха, была эталоном надёжности и тепла.
+              Наши печи созданы для тех, кто хочет получить изделие на
+              десятилетия, а не менять их каждые три года.
             </motion.p>
 
             <motion.p variants={paragraphVariants} className={styles.paragraph}>
-              Если вы цените честный подход, инженерную основательность и ту
-              самую атмосферу настоящей русской бани — вы на своём месте. Добро
-              пожаловать в <strong>Колывань</strong>.
+              Честность, качество, надёжность — во всём.
             </motion.p>
           </div>
 
-          <div className={styles.infoBox}>
+          {/* Факты как семантический dl */}
+          <dl className={styles.infoBox}>
             <div className={styles.fact}>
-              <span className={styles.label}>Толщина стали</span>
-              <span className={styles.value}>2–3 мм</span>
+              <dt className={styles.label}>Толщина стали</dt>
+              <dd className={styles.value}>2–3 мм</dd>
             </div>
             <div className={styles.fact}>
-              <span className={styles.label}>Марка</span>
-              <span className={styles.value}>AISI 321</span>
+              <dt className={styles.label}>Марка</dt>
+              <dd className={styles.value}>AISI 321</dd>
             </div>
             <div className={styles.fact}>
-              <span className={styles.label}>Гарантия</span>
-              <span className={styles.value}>5 лет</span>
+              <dt className={styles.label}>Гарантия</dt>
+              <dd className={styles.value}>5 лет</dd>
             </div>
             <div className={styles.fact}>
-              <span className={styles.label}>Производство</span>
-              <span className={styles.value}>в России</span>
+              <dt className={styles.label}>Производство</dt>
+              <dd className={styles.value}>в России</dd>
             </div>
-          </div>
+          </dl>
         </div>
       </motion.div>
     </section>

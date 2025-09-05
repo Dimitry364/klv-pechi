@@ -45,6 +45,7 @@
     width: clamp(180px, 40vw, 250px);
     height: auto;
     object-fit: contain;
+    border-radius: 10px;
 
     @media (max-width: 570px) {
       width: 100%;

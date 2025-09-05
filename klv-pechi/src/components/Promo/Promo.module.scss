@@ -25,7 +25,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: clamp(20px, 4vw, 60px);
   z-index: 1;
 
@@ -42,24 +41,70 @@
   flex: 1 1 300px;
   max-width: 660px;
 
+  .kicker {
+    font-size: clamp(12px, 1.2vw, 14px);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c9c9c9;
+    margin-bottom: 8px;
+  }
+
   .title {
-    min-height: 180px;
-    font-size: clamp(49px, 6vw, 72px);
+    margin: 0 0 clamp(16px, 3vw, 32px);
+    //  18–22 символа на строку; на очень узких сузим до 14ch в медиазапросе
+    max-inline-size: clamp(18ch, 22ch, 24ch);
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  //  Слоган отдельным блоком
+  .tagline {
+    color: #d61111;
+    max-inline-size: clamp(22ch, 28ch, 32ch);
+    font-size: clamp(32px, 3.2vw, 46px);
     font-weight: 900;
     line-height: 1.15;
-    margin-bottom: clamp(16px, 3vw, 32px);
+    margin: 0 0 clamp(10px, 2vw, 16px);
+    text-wrap: balance;
+  }
 
-    span {
-      display: block;
-      color: #d61111;
+  // подзаголовок/описание
+  .subtitle {
+    display: grid;
+    margin: 0;
+    gap: 4px;
+    max-width: 500px;
+    max-inline-size: 40ch;
+    text-wrap: balance;
+  }
+
+  .subtitleSpan {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 500;
+    line-height: 1.2;
+    color: #d1d5db;
+  }
+
+  @media (max-width: 768px) {
+    .title {
+      max-inline-size: 14ch;
+    }
+
+    .tagline {
+      max-inline-size: 22ch;
     }
   }
 
-  .subtitle {
-    font-size: clamp(17px, 2vw, 22px);
-    color: #d1d5db;
-    max-width: 500px;
-    line-height: 1.4;
+  @media (max-width: 480px) {
+    .title {
+      font-size: clamp(28px, 9vw, 36px);
+    }
+    .tagline {
+      font-size: clamp(20px, 7vw, 32px);
+    }
   }
 }
 

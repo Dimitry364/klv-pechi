@@ -108,9 +108,11 @@ function ProductDetails({ product }) {
         </div>
 
         <div className={styles.descriptionBlock}>
-          <h3 className={styles.subsectionTitle}>Материалы</h3>
-          <p className={styles.paragraph}>{description.material}</p>
+          <h3 className={styles.subsectionTitle}>Преимущества</h3>
+          <p className={styles.paragraph}>{description.benefits}</p>
+          <p className={styles.paragraph}>{description.conclusion}</p>
         </div>
+
         {description.equipment.length > 0 ? (
           <div className={styles.descriptionBlock}>
             <h3 className={styles.subsectionTitle}>Комплектация</h3>
@@ -125,12 +127,6 @@ function ProductDetails({ product }) {
         ) : (
           ''
         )}
-
-        <div className={styles.descriptionBlock}>
-          <h3 className={styles.subsectionTitle}>Преимущества</h3>
-          <p className={styles.paragraph}>{description.benefits}</p>
-          <p className={styles.paragraph}>{description.conclusion}</p>
-        </div>
       </div>
       {added && <ModalSuccess onClose={() => setAdded(false)} />}
     </div>

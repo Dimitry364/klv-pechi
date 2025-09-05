@@ -6,6 +6,7 @@ import ProductPageClient from '@/components/ProductPageClient/ProductPageClient'
 import AboutSection from '@/components/AboutSection/AboutSection';
 import DeliverySection from '@/components/DeliverySection/DeliveryAndPayment';
 import GallerySection from '@/components/GallerySection/GallerySection';
+import VideoShort from '@/components/VideoShorts/VideoReview';
 
 export default async function Home() {
   const mongoProducts = await productService.getProducts();
@@ -29,6 +30,19 @@ export default async function Home() {
     <div className={styles.page}>
       <main className={styles.main}>
         <Promo />
+        <VideoShort
+          title='Видеообзор печей «Колывань»'
+          mp4='/video/kolyvan-short.mp4'
+          webm='/video/kolyvan-short.webm'
+          poster='/video/kolyvan-short-poster.jpg'
+          playButton='/video/play-button.svg'
+          durationHint='6:50'
+          chips={[
+            'Нерж. сталь AISI 321',
+            'Производство в России',
+            'Гарантия 5 лет',
+          ]}
+        />
         <ProductPageClient stoves={stoves} accessories={accessories} />
         <GallerySection albums={albums} />
         <AboutSection />

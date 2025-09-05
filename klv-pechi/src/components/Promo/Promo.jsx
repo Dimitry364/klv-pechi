@@ -22,12 +22,16 @@ const Promo = () => {
     <section className={styles.promo}>
       <div className={styles.content}>
         <div className={styles.textContainer}>
-          <h1 className={styles.title}>
-            Жаркие печи <br /> для бани <br />
-            <span>только из Колывани!</span>
-          </h1>
+          <p className={styles.kicker}>Собственное производство</p>
+          <h1 className={styles.title}>Эксклюзивные печи для бани</h1>
+          <p className={styles.tagline}>Для тех, кто выбирает лучшее</p>
           <p className={styles.subtitle}>
-            Надёжность, жар и стиль — то, что нужно для настоящей русской бани.
+            <span className={styles.subtitleSpan}>
+              Нержавеющая сталь AISI&nbsp;321
+            </span>
+            <span className={styles.subtitleSpan}>
+              Гарантия и доставка по всей России
+            </span>
           </p>
           <div className={styles.buttons}>
             <button

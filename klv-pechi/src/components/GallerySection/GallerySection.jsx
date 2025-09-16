@@ -14,20 +14,29 @@ export default function GallerySection({ albums = [] }) {
   const [isClient, setIsClient] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  console.log(albums);
+
   // клиентский флаг
   useEffect(() => {
     setIsClient(true);
-    const handleResize = () => setIsMobile(window.innerWidth < 600);
-    handleResize(); // при монтировании
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    if (typeof window === 'undefined') return;
+    const m = window.matchMedia('(max-width: 600px)');
+    const onChange = (evt) => setIsMobile(evt.matches);
+    setIsMobile(m.matches);
+    m.addEventListener('change', onChange);
+    return () => m.removeEventListener('change', onChange);
   }, []);
 
   // безопасный flatMap
   const flatPhotos = useMemo(() => {
     if (!albums || !Array.isArray(albums)) return [];
-    return albums.flatMap(({ slug, title, photos }) =>
-      (photos || []).map((src) => ({ src, albumTitle: title, albumSlug: slug }))
+    return albums.flatMap(({ slug, title, photos, textPlain }) =>
+      (photos || []).map((src) => ({
+        src,
+        albumTitle: title,
+        albumSlug: slug,
+        description: textPlain,
+      }))
     );
   }, [albums]);
 
@@ -46,7 +55,7 @@ export default function GallerySection({ albums = [] }) {
   if (!albums || albums.length === 0) {
     return (
       <section className={styles.gallerySection}>
-        <h2 className={styles.title}>Фотогалерея</h2>
+        <h2 className={styles.title}>Галерея</h2>
         <p className={styles.empty}>Фотографии пока не добавлены.</p>
       </section>
     );
@@ -87,7 +96,7 @@ export default function GallerySection({ albums = [] }) {
               <span className={styles.counter}>
                 {alb.photos?.length ?? 0} фото
               </span>
-              <span className={styles.caption}>{alb.description}</span>
+              <span className={styles.caption}>{alb.title}</span>
             </SwiperSlide>
           ))}
         </Swiper>

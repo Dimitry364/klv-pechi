@@ -8,7 +8,6 @@ import 'swiper/css/navigation';
 import styles from './GalleryModal.module.scss';
 
 export default function GalleryModal({ onClose, startIndex, flatPhotos }) {
-    
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose();
     //запрещаем скролл, пока открыта модалка, добавляем слушатель, нажали esc - закрыли
@@ -20,6 +19,8 @@ export default function GalleryModal({ onClose, startIndex, flatPhotos }) {
       window.removeEventListener('keydown', onKey);
     };
   }, [onClose]); // эффект выполняется один раз при открытии и чистится при закрытии
+
+  console.log(flatPhotos);
 
   return createPortal(
     <div className={styles.overlay} onClick={onClose}>
@@ -37,11 +38,11 @@ export default function GalleryModal({ onClose, startIndex, flatPhotos }) {
           loop
           className={styles.photoSwiper}
         >
-          {flatPhotos.map(({ src, albumTitle }, index) => (
+          {flatPhotos.map(({ src, description }, index) => (
             <SwiperSlide key={index} className={styles.photoSlide}>
-              <img src={src} className={styles.image} alt={albumTitle} />
+              <img src={src} className={styles.image} alt={description} />
               <div className='swiper-lazy-preloader' />
-              <p className={styles.desc}>{albumTitle}</p>
+              <p className={styles.desc}>{description}</p>
             </SwiperSlide>
           ))}
         </Swiper>

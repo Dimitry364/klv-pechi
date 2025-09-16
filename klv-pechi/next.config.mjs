@@ -1,11 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   experimental: {
-    optimizeCss: true, // удаляет неиспользуемый CSS
-    output: 'standalone',
-    experimental: {
-      instrumentationHook: true,
-    },
+    optimizeCss: true,
+    instrumentationHook: true,
+  },
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'cdn.sanity.io', pathname: '/images/**' },
+    ],
   },
 };
 

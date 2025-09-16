@@ -1,7 +1,8 @@
 import styles from './page.module.css';
-import Promo from '../components/Promo/Promo';
-import { productService } from '@/lib/ProductService';
-// import { galleryService } from '@/lib/galleryService';
+import Promo from '@/components/Promo/Promo';
+import { getCatalogSections } from '@/lib/CategoryServiceSanity';
+// import { getProducts } from '@/lib/ProductServiceSanity';
+import { getGallery } from '@/lib/galleryServiceSanity';
 import ProductPageClient from '@/components/ProductPageClient/ProductPageClient';
 import AboutSection from '@/components/AboutSection/AboutSection';
 import DeliverySection from '@/components/DeliverySection/DeliveryAndPayment';
@@ -9,22 +10,10 @@ import GallerySection from '@/components/GallerySection/GallerySection';
 import VideoShort from '@/components/VideoShorts/VideoReview';
 
 export default async function Home() {
-  const mongoProducts = await productService.getProducts();
-  const products = JSON.parse(JSON.stringify(mongoProducts));
-
-  const stoves = products.filter((p) => p.category === 'stoves');
-  const accessories = products.filter((p) => p.category === 'accessories');
-
-  // const mongoAlbums = await galleryService.getGalleryAlbum();
-  // const albums = JSON.parse(JSON.stringify(mongoAlbums));
-
-  const res = await fetch(
-    `${process.env.API_URL || 'http://localhost:3000'}/api/gallery`,
-    {
-      cache: 'no-store',
-    }
-  );
-  const albums = await res.json();
+  const [sections, albums] = await Promise.all([
+    getCatalogSections(),
+    getGallery(),
+  ]);
 
   return (
     <div className={styles.page}>
@@ -43,7 +32,7 @@ export default async function Home() {
             'Гарантия 5 лет',
           ]}
         />
-        <ProductPageClient stoves={stoves} accessories={accessories} />
+        <ProductPageClient sections={sections} />
         <GallerySection albums={albums} />
         <AboutSection />
         <DeliverySection />

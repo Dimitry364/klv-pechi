@@ -81,12 +81,6 @@ function ProductDetails({ product }) {
           </button>
           <table className={styles.specsTable}>
             <tbody>
-              {material && (
-                <tr>
-                  <td>Материал</td>
-                  <td>{material}</td>
-                </tr>
-              )}
               {specs &&
                 Object.entries(specs).map(([key, value]) => (
                   <tr key={key}>

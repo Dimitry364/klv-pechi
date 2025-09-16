@@ -192,7 +192,7 @@ export default function CartPage() {
                       src={item.product.image}
                       alt={item.product.title}
                       width={90}
-                      height={90}
+                      height={110}
                       priority
                     />
                     <div className={styles.cartItemInfo}>

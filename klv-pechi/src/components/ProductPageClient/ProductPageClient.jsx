@@ -5,7 +5,7 @@ import scrollToHash from '@/components/utils/scrollToHash';
 import styles from './ProductPageClient.module.scss';
 import ProductList from '@/components/ProductList/ProductList';
 
-export default function ProductPageClient({ stoves, accessories }) {
+export default function ProductPageClient({ sections = [] }) {
   useEffect(() => {
     const hash = window.location.hash;
 
@@ -18,25 +18,23 @@ export default function ProductPageClient({ stoves, accessories }) {
 
   return (
     <>
-      <section className={styles.section} id='stoves'>
-        <div className={styles.sectionBox}>
-          <h2 className={styles.sectionTitle}>Печи</h2>
-          <p className={styles.sectionSubtitle}>
-            Жаркие печи для настоящей русской бани
-          </p>
-        </div>
-        <ProductList products={stoves} />
-      </section>
-
-      <section className={styles.section} id='accessories'>
-        <div className={styles.sectionBox}>
-          <h2 className={styles.sectionTitle}>Аксессуары</h2>
-          <p className={styles.sectionSubtitle}>
-            Для комфорта, уюта и огня под контролем
-          </p>
-        </div>
-        <ProductList products={accessories} />
-      </section>
+      {sections.map(({ category, products }) => (
+        <section
+          key={category.slug}
+          className={styles.section}
+          id={category.slug}
+        >
+          {products.length > 0 ? (
+            <div className={styles.sectionBox}>
+              <h2 className={styles.sectionTitle}>{category.title}</h2>
+              {category.subtitle ? (
+                <p className={styles.sectionSubtitle}>{category.subtitle}</p>
+              ) : null}
+            </div>
+          ) : null}
+          <ProductList products={products} />
+        </section>
+      ))}
     </>
   );
 }

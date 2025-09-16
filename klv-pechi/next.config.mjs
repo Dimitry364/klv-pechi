@@ -3,7 +3,6 @@ const nextConfig = {
   output: 'standalone',
   experimental: {
     optimizeCss: true,
-    instrumentationHook: true,
   },
   images: {
     remotePatterns: [

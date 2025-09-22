@@ -117,11 +117,50 @@
 
 .burger {
   display: none;
+  width: 30px;
+  height: 24px;
+  position: relative;
   background: none;
   border: none;
-  color: white;
-  font-size: 22px;
   cursor: pointer;
+  z-index: 90;
+  transition: transform 0.3s ease;
+
+  span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  span:nth-child(1) {
+    top: 4px;
+  }
+  span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  span:nth-child(3) {
+    bottom: 4px;
+  }
+
+  &.open {
+    span:nth-child(1) {
+      transform: translateY(-50%) rotate(45deg);
+      top: 50%;
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: translateY(-50%) rotate(-45deg);
+      bottom: auto;
+      top: 50%;
+    }
+  }
 
   @media (max-width: 768px) {
     display: block;
@@ -131,16 +170,41 @@
 .mobileMenu {
   display: flex;
   flex-direction: column;
-  text-align: center;
-  background: #1c1c1c;
-  padding: clamp(12px, 3vw, 20px);
-  gap: clamp(13px, 2vw, 16px);
+  align-items: center;
+  padding: 80px 20px 40px;
+  gap: 20px;
 
-  a {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 20px;
+
+  position: fixed;
+  top: 60px;
+  right: 0;
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+
+  transform: translateX(100%);
+  transition:
+    transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    opacity 0.8s cubic-bezier(0.82, 0, 0.7, 1.16);
+  opacity: 0;
+  z-index: 150;
+
+  &.open {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  a,
+  button {
     color: white;
     font-weight: 600;
-    font-size: clamp(14px, 1.5vw, 16px);
+    font-size: 18px;
     text-decoration: none;
+    transition: color 0.2s;
 
     &:hover {
       color: #c20909;

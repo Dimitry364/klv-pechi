@@ -4,12 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import {
-  FaWhatsapp,
-  FaTelegramPlane,
-  FaShoppingCart,
-  FaBars,
-} from 'react-icons/fa';
+import { FaWhatsapp, FaTelegramPlane, FaShoppingCart } from 'react-icons/fa';
 import styles from './Header.module.scss';
 import scrollToHash from '../utils/scrollToHash';
 import { useCart } from '@/context/CartContext';
@@ -19,6 +14,14 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { cart } = useCart();
+
+  const navItems = [
+    { label: 'Каталог', sectionId: 'stoves' },
+    { label: 'Галерея', sectionId: 'gallery' },
+    { label: 'О нас', sectionId: 'about' },
+    { label: 'Доставка и оплата', sectionId: 'delivery' },
+    { label: 'Контакты', sectionId: 'contact' },
+  ];
 
   const handleScrollToSection = (sectionId) => {
     if (sectionId === 'contact') {
@@ -47,46 +50,24 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className={styles.nav}>
-          <button
-            className={styles.buttonScroll}
-            onClick={() => handleScrollToSection('stoves')}
-          >
-            Каталог
-          </button>
-          <button
-            className={styles.buttonScroll}
-            onClick={() => handleScrollToSection('gallery')}
-          >
-            Галерея
-          </button>
-          <button
-            className={styles.buttonScroll}
-            onClick={() => handleScrollToSection('about')}
-          >
-            О нас
-          </button>
-          <button
-            className={styles.buttonScroll}
-            onClick={() => handleScrollToSection('delivery')}
-          >
-            Доставка и оплата
-          </button>
-          <button
-            className={styles.buttonScroll}
-            onClick={() => handleScrollToSection('contact')}
-          >
-            Контакты
-          </button>
+          {navItems.map((item) => (
+            <button
+              key={item.sectionId}
+              className={styles.buttonScroll}
+              onClick={() => handleScrollToSection(item.sectionId)}
+              aria-label={`Перейти к ${item.label}`}
+            >
+              {item.label}
+            </button>
+          ))}
         </nav>
 
         {/* Right Side: Icons */}
         <div className={styles.actions}>
           <Link href='/cart' className={styles.icon}>
             <FaShoppingCart />
-            {cart.length > 0 ? (
+            {cart.length > 0 && (
               <span className={styles.badge}>{cart.length}</span>
-            ) : (
-              ''
             )}
           </Link>
           <a
@@ -107,61 +88,40 @@ export default function Header() {
             +7 (951) 364-55-66
           </a>
           <button
-            className={styles.burger}
+            className={`${styles.burger} ${menuOpen ? styles.open : ''}`}
             onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label='Меню'
           >
-            <FaBars />
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className={styles.mobileMenu}>
+      <div className={`${styles.mobileMenu} ${menuOpen ? styles.open : ''}`}>
+        {navItems.map((item) => (
           <button
+            key={item.sectionId}
             className={styles.buttonScroll}
             onClick={() => {
-              handleScrollToSection('stoves');
+              handleScrollToSection(item.sectionId);
               setMenuOpen(false);
             }}
+            aria-label={`Перейти к ${item.label}`}
           >
-            Каталог
+            {item.label}
           </button>
-          <button
-            className={styles.buttonScroll}
-            onClick={() => {
-              handleScrollToSection('gallery');
-              setMenuOpen(false);
-            }}
-          >
-            Галерея
-          </button>
-          <button
-            className={styles.buttonScroll}
-            onClick={() => {
-              handleScrollToSection('delivery');
-              setMenuOpen(false);
-            }}
-          >
-            Доставка и оплата
-          </button>
-          <button
-            className={styles.buttonScroll}
-            onClick={() => {
-              handleScrollToSection('contact');
-              setMenuOpen(false);
-            }}
-          >
-            Контакты
-          </button>
-          <Link href='/cart' onClick={() => setMenuOpen(false)}>
-            Корзина
-          </Link>
-          <a href='tel:+79513645566' onClick={() => setMenuOpen(false)}>
-            +7 (951) 364-55-66
-          </a>
-        </div>
-      )}
+        ))}
+
+        <Link href='/cart' onClick={() => setMenuOpen(false)}>
+          Корзина
+        </Link>
+        <Link href='tel:+79513645566' onClick={() => setMenuOpen(false)}>
+          +7 (951) 364-55-66
+        </Link>
+      </div>
     </header>
   );
 }

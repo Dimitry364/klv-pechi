@@ -107,7 +107,7 @@ function ProductDetails({ product }) {
           <p className={styles.paragraph}>{description.conclusion}</p>
         </div>
 
-        {description.equipment.length > 0 ? (
+        {description?.equipment?.length > 0 ? (
           <div className={styles.descriptionBlock}>
             <h3 className={styles.subsectionTitle}>Комплектация</h3>
             <ul className={styles.equipmentList}>

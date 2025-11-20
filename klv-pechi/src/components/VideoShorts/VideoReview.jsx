@@ -9,7 +9,7 @@ export default function VideoReview({
   mp4,
   webm,
   playButton,
-  duration = '6:50',
+  duration = '6:49',
   chips = ['AISI 321', 'Производство в России', 'Гарантия 5 лет'],
 }) {
   const [open, setOpen] = useState(false);

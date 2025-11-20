@@ -50,7 +50,7 @@ function ProductCard({ product }) {
           </ul>
           <div className={styles.footer}>
             <div className={styles.price}>
-              {options?.[0].values?.length > 1 ? 'от ' : ''}
+              {(options?.[0]?.values?.length) > 1 ? 'от ' : ''}
               {price.toLocaleString('ru-RU')} ₽
             </div>
             <button className={styles.cta}>Подробнее</button>

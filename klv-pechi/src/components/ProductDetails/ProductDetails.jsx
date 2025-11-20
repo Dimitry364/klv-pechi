@@ -33,7 +33,9 @@ function ProductDetails({ product }) {
 
   const gallery = normalizeImages(images, image);
 
-  const [selectedOption, setSelectedOption] = useState(options[0]?.values[0]);
+  const [selectedOption, setSelectedOption] = useState(
+    options[0]?.values[0] ?? null
+  );
 
   const { addToCart, added, setAdded } = useCart();
 
@@ -46,9 +48,11 @@ function ProductDetails({ product }) {
 
         <div className={styles.infoBlock}>
           <h1 className={styles.title}>{title}</h1>
-          <div className={styles.price}>
-            {selectedOption.price.toLocaleString('ru-RU')} ₽
-          </div>
+          {selectedOption && (
+            <div className={styles.price}>
+              {selectedOption.price.toLocaleString('ru-RU')} ₽
+            </div>
+          )}
 
           {options?.[0]?.values?.length > 0 && (
             <div className={styles.options}>

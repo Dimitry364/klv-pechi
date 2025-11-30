@@ -8,6 +8,14 @@ import PhoneInput from 'react-phone-input-2';
 import Image from 'next/image';
 import 'react-phone-input-2/lib/style.css';
 import Modal from '@/components/Modal/Modal';
+import { createPageMetadata } from '@/seo/baseSeo';
+
+export const metadata = createPageMetadata({
+  title: 'Корзина — Колывань-Печи',
+  description: 'Товары, которые вы планируете заказать на сайте Колывань-Печи.',
+  path: '/cart',
+  index: false, // корзина noindex
+});
 
 export default function CartPage() {
   const { cart, removeFromCart, clearCart } = useCart();

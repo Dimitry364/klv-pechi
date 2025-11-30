@@ -1,9 +1,12 @@
-export const metadata = { title: 'Admin' };
+import { createPageMetadata } from '@/seo/baseSeo';
+
+export const metadata = createPageMetadata({
+  title: 'Admin',
+  description: 'Панель управления контентом сайта Колывань-Печи.',
+  path: '/admin',
+  index: false, // админка noindex
+});
 
 export default function AdminLayout({ children }) {
-  return (
-    <html lang='ru'>
-      <body>{children}</body>
-    </html>
-  );
+  return <>{children}</>;
 }

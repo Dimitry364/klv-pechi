@@ -16,7 +16,6 @@ const baseMeta = createPageMetadata({
 export const metadata = {
   ...baseMeta,
   metadataBase: new URL(SITE_URL),
-  themeColor: '#0a0a0a',
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.ico',

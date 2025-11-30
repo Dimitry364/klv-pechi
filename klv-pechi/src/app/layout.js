@@ -5,7 +5,6 @@ export const metadata = {
     template: '%s — Доставка по всей России',
   },
   manifest: '/manifest.json',
-  themeColor: '#0a0a0a',
   icons: {
     icon: '/favicon.ico',
     apple: '/img/icons/icon-192.png',

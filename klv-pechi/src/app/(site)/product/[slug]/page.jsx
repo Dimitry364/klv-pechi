@@ -4,7 +4,8 @@ import Script from 'next/script';
 import { buildProductMetadata } from '@/seo/productSeo';
 
 export async function generateMetadata({ params }) {
-  const product = await getProductBySlug(params.slug);
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
   return buildProductMetadata(product);
 }
 
@@ -14,7 +15,8 @@ export async function generateStaticParams() {
 }
 
 export default async function ProductPage({ params }) {
-  const product = await getProductBySlug(params.slug);
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
 
   if (!product) return <div>Товар не найден</div>;
 

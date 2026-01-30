@@ -2,6 +2,13 @@ import { NextResponse } from 'next/server';
 
 export function middleware(req) {
   const { pathname } = req.nextUrl;
+
+  console.log('[REQ]', {
+    method: req.method,
+    url: pathname,
+    ua: req.headers.get('user-agent'),
+  });
+
   if (!pathname.startsWith('/admin')) {
     const res = NextResponse.next();
     res.headers.set('X-Robots-Tag', 'noindex, nofollow');
@@ -27,4 +34,4 @@ export function middleware(req) {
   });
 }
 
-export const config = { matcher: ['/admin/:path*'] };
+export const config = { matcher: ['/:path*'] };

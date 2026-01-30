@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
   experimental: {
-    optimizeCss: true,
+    // optimizeCss: true,
   },
   images: {
     remotePatterns: [

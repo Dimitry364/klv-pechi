@@ -16,7 +16,8 @@ export function middleware(req) {
   if (auth) {
     const [scheme, encoded] = auth.split(' ');
     if (scheme?.toLowerCase() === 'basic') {
-      const [user, pass] = Buffer.from(encoded, 'base64').toString().split(':');
+      const decoded = atob(encoded);
+      const [user, pass] = decoded.split(':');
       if (user === u && pass === p) return NextResponse.next();
     }
   }
